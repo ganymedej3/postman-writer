@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "91c2fb5b-9b89-4b1a-9759-3e69fe3ad193",
+		"name": "postman-writer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14728322",
+		"_collection_link": "https://www.postman.com/ganymede-belters/workspace/project-j3/collection/14728322-91c2fb5b-9b89-4b1a-9759-3e69fe3ad193?action=share&source=collection_link&creator=14728322"
+	},
+	"item": [
+		{
+			"name": "GetJokes",
+			"item": [
+				{
+					"name": "Get_tenRandomJokes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jokesArray = JSON.parse(responseBody);",
+									"let jokes = [];",
+									"",
+									"function formatString(inputString) {",
+									"    // Replace newline characters with spaces and wrap in double quotes",
+									"    return `\"${inputString.replace(/\\n/g, ' ')}\"`;",
+									"}",
+									"",
+									"console.log('setup, punchline');",
+									"for (let joke in jokesArray){",
+									"    console.log(formatString(jokesArray[joke].setup)+ \",\" + formatString(jokesArray[joke].punchline));",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://official-joke-api.appspot.com/random_ten",
+							"protocol": "https",
+							"host": [
+								"official-joke-api",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"random_ten"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TranslateJokes",
+			"item": [
+				{
+					"name": "Post_microsoftTranslator",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let jokeSetup = pm.iterationData.get('setup');",
+									"let jokePunchline = pm.iterationData.get('punchline');",
+									"",
+									"pm.variables.set('translatePayload', jokeSetup+'|'+jokePunchline);",
+									"//console.log(pm.variables.get('translatePayload'));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = JSON.parse(responseBody);",
+									"let allTranslatedJokes = JSON.parse(pm.collectionVariables.get('allTranslatedJokes_evar'));",
+									"",
+									"//if the API does not respond with 200, skip collecting translated text",
+									"if (pm.response.code === 200){",
+									"    //this assumes that the API returns just 1 object in the array since we are request translation for 1 text object",
+									"    let translatedText = response[0].translations[0].text;",
+									"    let translatedJoke = {",
+									"        \"arreglo\": translatedText.split('|')[0],",
+									"        \"remate\": translatedText.split('|')[1]",
+									"    }",
+									"    allTranslatedJokes.push(translatedJoke);",
+									"}",
+									"//console.log(allJokes);",
+									"pm.collectionVariables.set('allTranslatedJokes_evar', JSON.stringify(allTranslatedJokes));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-RapidAPI-Key",
+								"value": "{{rapidApiKey_evar}}",
+								"type": "text"
+							},
+							{
+								"key": "X-RapidAPI-Host",
+								"value": "microsoft-translator-text.p.rapidapi.com",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n    \"Text\": \"{{translatePayload}}\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://microsoft-translator-text.p.rapidapi.com/translate?api-version=3.0&to=es&profanityAction=NoAction&textType=plain",
+							"protocol": "https",
+							"host": [
+								"microsoft-translator-text",
+								"p",
+								"rapidapi",
+								"com"
+							],
+							"path": [
+								"translate"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "3.0"
+								},
+								{
+									"key": "to",
+									"value": "es"
+								},
+								{
+									"key": "profanityAction",
+									"value": "NoAction"
+								},
+								{
+									"key": "textType",
+									"value": "plain"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "jokes_cvar",
+			"value": ""
+		}
+	]
+}
