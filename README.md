@@ -48,6 +48,17 @@ The scripts generate the following result files:
 
 - `all_jokes_in_Spanish.json`: Contains translated data from the Postman collection run in JSON format (from `write2json.js`).
 
+## Docker Container Usage
+
+You can also run the Postman Collection Runner scripts within a Docker container. Here's how to do it:
+
+1. **Build the Docker Image**: Before running the scripts, you need to build a Docker image using the provided Dockerfile. Use the following commands to build the image (replace `$IMAGE_NAME` with your desired image name):
+
+   ```bash
+   docker build --no-cache -t $IMAGE_NAME .
+   docker run --rm -e DATA_FILE=${data} -e RAPIDAPI_KEY=${your_rapidapi_key} -v "$(pwd):/app" ${IMAGE_NAME}
+   ```
+
 ## Important Notes
 
 - Ensure you have Node.js installed on your machine.
