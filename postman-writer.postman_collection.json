@@ -21,8 +21,12 @@
 									"let jokes = [];",
 									"",
 									"function formatString(inputString) {",
-									"    // Replace newline characters with spaces and wrap in double quotes",
-									"    return `\"${inputString.replace(/\\n/g, ' ')}\"`;",
+									"    // Replace newline characters with whitespaces",
+									"    const stringWithSpaces = inputString.replace(/\\n/g, ' ');",
+									"    // Escape double quotes",
+									"    const stringWithEscapedQuotes = stringWithSpaces.replace(/\"/g, \"'\");",
+									"    // Wrap the string in double quotes",
+									"    return `\"${stringWithEscapedQuotes}\"`;",
 									"}",
 									"",
 									"console.log('setup, punchline');",
@@ -80,7 +84,8 @@
 							"script": {
 								"exec": [
 									"const response = JSON.parse(responseBody);",
-									"let allTranslatedJokes = JSON.parse(pm.collectionVariables.get('allTranslatedJokes_evar'));",
+									"let allTranslatedJokes = JSON.parse(pm.environment.get('allTranslatedJokes_evar'));",
+									"console.log(allTranslatedJokes);",
 									"",
 									"//if the API does not respond with 200, skip collecting translated text",
 									"if (pm.response.code === 200){",
@@ -93,7 +98,7 @@
 									"    allTranslatedJokes.push(translatedJoke);",
 									"}",
 									"//console.log(allJokes);",
-									"pm.collectionVariables.set('allTranslatedJokes_evar', JSON.stringify(allTranslatedJokes));"
+									"pm.environment.set('allTranslatedJokes_evar', JSON.stringify(allTranslatedJokes));"
 								],
 								"type": "text/javascript"
 							}
