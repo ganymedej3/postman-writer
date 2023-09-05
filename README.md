@@ -12,6 +12,8 @@ Before running the script, you need to complete the following prerequisites:
 
 2. **Postman Collection and Environment Files**: Ensure that you have the required Postman collection (`postman-writer.postman_collection.json`) and environment (`postman-writer.postman_environment.json`) files in the same directory as the scripts. These files define the API requests and configurations.
 
+You can also get the postman collection and environment files from [Postman](https://www.postman.com/ganymede-belters/workspace/project-j3/collection/14728322-91c2fb5b-9b89-4b1a-9759-3e69fe3ad193?action=share&creator=14728322&active-environment=14728322-2eb454c6-06a4-4f28-861e-b1cc442a1bdb)
+
 ## Usage
 
 ### `write2csv.js`
