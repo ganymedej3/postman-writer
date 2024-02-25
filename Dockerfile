@@ -18,9 +18,10 @@ COPY package*.json ./
 
 # Bundle app source
 COPY . .
+RUN mkdir -p /app/reports && chmod -R 777 /app/reports
 
 # Define the command to run the application
 #CMD ["node", "main.js"]
 #CMD ["node", "write2json.js"]
-USER root
+#USER root
 CMD ["npm", "start"]

@@ -7,7 +7,7 @@ phases:
       - docker --version # This command is just to ensure Docker is installed and available
   build:
     commands:
-      - mkdir reports
+      #- mkdir reports
       # Build your Docker image
       - docker build -t postman-writer .
       # Run the Postman collection using Newman in the container
