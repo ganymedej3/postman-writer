@@ -22,9 +22,9 @@ newman.run({
     environment: './postman-writer.postman_environment.json',
     // Set environment variable for the RapidAPI key
     envVar: [{ "key": "rapidApiKey_evar", "value": `${rapidApiKey}` }],
-    reporters: ['junitfull','csv','json'],
+    reporters: ['junit','junitfull','csv','json'],
     folder: 'TranslateJokes',
-    reporter: { junitfull: { export: './reports/junitResults.xml' }, csv: { export: './reports/csvresults.csv' }, json: { export: './reports/jsonresults.json'} }
+    reporter: { junit: {export: './reports/junitReport.xml'}, junitfull: { export: './reports/junitFullReport.xml' }, csv: { export: './reports/csvresults.csv' }, json: { export: './reports/jsonresults.json'} }
 }, function (err) {
 	if (err) { throw err; }
     console.log('Collection run complete!');

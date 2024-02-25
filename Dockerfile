@@ -1,4 +1,4 @@
-FROM node:18.16.0
+FROM node:18.17.0
 
 RUN npm install -g npm@latest
 
@@ -20,4 +20,4 @@ COPY . .
 
 # Define the command to run the application
 #CMD ["node", "main.js"]
-CMD ["npm", "start"]
+CMD ["node", "write2json.js"]

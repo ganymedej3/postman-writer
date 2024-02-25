@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 19
+  build:
+    commands:
+      # Build your Docker image
+      - docker build -t postman-writer .
+      # Run the Postman collection using Newman in the container
+      - >
+        docker run --rm
+        -e DATA_FILE=jokes.csv
+        -e RAPIDAPI_KEY=$RAPIDAPI_KEY
+        -v "$(pwd):/app"
+        postman-writer
+
+artifacts:
+  files:
+    - reports/junitFullReport.xml
+reports:
+  junit:
+    files:
+      - reports/junitFullReport.xml
+    file-format: "xml"
+    base-directory: 'reports'
