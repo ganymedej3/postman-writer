@@ -22,4 +22,5 @@ COPY . .
 # Define the command to run the application
 #CMD ["node", "main.js"]
 #CMD ["node", "write2json.js"]
+USER root
 CMD ["npm", "start"]
