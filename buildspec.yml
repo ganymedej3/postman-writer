@@ -9,19 +9,14 @@ phases:
     commands:
       #- mkdir reports
       # Build your Docker image
-      - docker build -t postman-writer .
+      - docker pull postman/newman
       # Run the Postman collection using Newman in the container
-      - >
-        docker run --rm
-        -e DATA_FILE=jokes.csv
-        -e RAPIDAPI_KEY=$RAPIDAPI_KEY
-        -v "$(pwd):/app"
-        postman-writer /bin/sh -c "find /app -print"
+      - docker run --rm -v "$(pwd):/etc/newman" --entrypoint /bin/sh postman/newman -c "npm i -g newman-reporter-junitfull; newman run postman-writer.postman_collection.json --environment=postman-writer.postman_environment.json --env-var rapidApiKey_evar=$RAPIDAPI_KEY -r junitfull --reporter-junitfull-export './reports/junitFullReport.xml'"
         
 artifacts:
   files:
-    - junitFullReport.xml
+    - reports/junitFullReport.xml
 reports:
   junit:
     files:
-      - junitFullReport.xml
+      - reports/junitFullReport.xml
