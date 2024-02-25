@@ -2,8 +2,9 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      docker: 19
+    commands:
+      - echo "Ensure Docker is available"
+      - docker --version # This command is just to ensure Docker is installed and available
   build:
     commands:
       # Build your Docker image
