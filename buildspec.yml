@@ -20,10 +20,8 @@ phases:
         
 artifacts:
   files:
-    - reports/junitFullReport.xml
+    - junitFullReport.xml
 reports:
   junit:
     files:
-      - reports/junitFullReport.xml
-    file-format: "xml"
-    base-directory: 'reports'
+      - junitFullReport.xml
