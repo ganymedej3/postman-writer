@@ -12,7 +12,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+#RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
 
@@ -21,4 +21,5 @@ COPY . .
 
 # Define the command to run the application
 #CMD ["node", "main.js"]
-CMD ["node", "write2json.js"]
+#CMD ["node", "write2json.js"]
+CMD ["npm", "start"]
