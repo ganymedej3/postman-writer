@@ -15,8 +15,8 @@ phases:
         -e DATA_FILE=jokes.csv
         -e RAPIDAPI_KEY=$RAPIDAPI_KEY
         -v "$(pwd):/app"
-        postman-writer
-
+        postman-writer /bin/sh -c "ls -la /app/reports"
+        
 artifacts:
   files:
     - reports/junitFullReport.xml
