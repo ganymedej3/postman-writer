@@ -1,5 +1,7 @@
 # Project Name: Postman Writer
 
+This projects objective is to provide basic samples on how to solve writing information to files on disk, which is one of the most sought after feature request.
+
 This project consists of two Node.js scripts, `write2csv.js` and `write2json.js`, designed to automate the execution of Postman collections and save the results in different formats. Additionally, it requires the use of the Microsoft Azure Translate API through RapidAPI, and this README provides instructions on how to set up and use these scripts.
 
 ## Prerequisites for write2json.js
