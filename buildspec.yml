@@ -11,7 +11,16 @@ phases:
       # Build your Docker image
       - docker pull postman/newman
       # Run the Postman collection using Newman in the container
-      - docker run --rm -v "$(pwd):/etc/newman" --entrypoint /bin/sh postman/newman -c "npm i -g newman-reporter-junitfull; newman run postman-writer.postman_collection.json --environment=postman-writer.postman_environment.json --env-var rapidApiKey_evar=$RAPIDAPI_KEY -r junitfull --reporter-junitfull-export './reports/junitFullReport.xml'"
+      - docker run --rm \
+          -v "$(pwd):/etc/newman" \
+          --entrypoint /bin/sh \
+          postman/newman \
+          -c "npm i -g newman-reporter-junitfull; \
+              newman run postman-writer.postman_collection.json \
+              --environment=postman-writer.postman_environment.json \
+              --env-var rapidApiKey_evar=$RAPIDAPI_KEY \
+              -r junitfull \
+              --reporter-junitfull-export './reports/junitFullReport.xml'"
         
 artifacts:
   files:
