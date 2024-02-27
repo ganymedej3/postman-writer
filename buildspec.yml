@@ -8,6 +8,7 @@ phases:
   build:
     commands:
       #- mkdir reports
+      - docker login --username kappagaa --password $DOCKER_AUTH_PASS
       # Build your Docker image
       - docker pull postman/newman
       # Run the Postman collection using Newman in the container
