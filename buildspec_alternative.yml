@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Ensure Docker is available"
+      - docker --version # This command is just to ensure Docker is installed and available
+  build:
+    commands:
+      #- mkdir reports
+      # Build your Docker image
+      - docker build -t postman-writer .
+      # Run the Postman collection using Newman in the container
+      - >
+        docker run --rm
+        -e DATA_FILE=jokes.csv
+        -e RAPIDAPI_KEY=$RAPIDAPI_KEY
+        -v "$(pwd):/app"
+        postman-writer /bin/sh -c "find /app -print"
+        
+artifacts:
+  files:
+    - junitFullReport.xml
+reports:
+  junit:
+    files:
+      - junitFullReport.xml
